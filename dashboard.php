@@ -1,16 +1,15 @@
-  
-<?php
-	if(!isset($_COOKIE["username"])){
-		header("Location : index.php");
-	}
-
-?>
-
 <html>
 	<head>
+	<title> Dashboard </title>
 	</head>
+	
 	<body>
-		<h1>Welcome <?php echo $_COOKIE["username"];?></h1>
-	 
+	<center>
+	<div> <a href =""> All Student </a></div>
+	<div><a href =""> Add student </a></div>
+	<div><a href =""> All department </a> </div>
+	<div><a href =""> Add Department </a></div>
+	</center>
 	</body>
+	
 </html>
