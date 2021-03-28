@@ -1,47 +1,33 @@
 <?php
-
-	$err_message="";
- 
-	if($_SERVER["REQUEST_METHOD"] == "POST"){
-		$username=$_POST["username"];
-		$password=$_POST["password"];
-		if($username == "asif" && $password == "1234"){
-			setcookie("username",$username,time()+120);
-			header("Location : dashboard.php");
+	require_once "db_config.php";
+	$uname= "";
+	$pass= "";
+	if ($_SERVER["REQUEST_METHOD"]=="POST")
+	{
+		$uname= $_POST["uname"];
+		$pass= $_POST["pass"];
+		$query= "select * from admin where Username='$uname' and Password='$pass' ";
+		$result= get($query);
+		
+		if(count($result)>0)
+		{
+			session_start();
+			$_SESSION["loggedin"]= $uname;
+			header("Location:dashboard.php");
 		}
 		else
-			$err_message= "Invalid Username or Password";
-	
-
+		{
+			echo "Username or Password is invalid!!!";
+		}
 	}
-?>
-
-
-
-
+?>	
 <html>
-	<head>
-	</head>
+	<head></head>
 	<body>
-			<form action="" method="post">
-				<table align="center">
-					<tr>
-						<td><span color="red"><?php echo $err_message;?></span> </td>
-					</tr>
-				
-					<tr>
-						<td><span>Username:</span> </td>
-						<td><input type="text" name="username"></td>
-					</tr>
-					<tr>
-						<td><span>Password: </span></td>
-						<td><input type="password" name="password"></td>
-					</tr>
-					<tr>
-						<td colspan="2" align="right"><input type="submit"  value="Login" name="login">
-					</tr>
-				</table>
-			</form>
-		
+		<form action="" method="POST">
+			Username: <input type="text" name ="uname"> <br>
+			Password: <input type="password" name="pass"> <br>
+			<input type ="submit" name= "submit" value= "login">
+		</form>
 	</body>
 </html>
